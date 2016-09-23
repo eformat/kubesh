@@ -31,6 +31,6 @@ clean:
 
 .PHONY: run
 run: setup
-	cp kubesh.go $(KUBESH_ROOT)/kubesh.go	
+	diff -q kubesh.go $(KUBESH_ROOT)/kubesh.go || cp kubesh.go $(KUBESH_ROOT)/kubesh.go
 	cd $(KUBE_ROOT)
 	go run $(KUBESH_ROOT)/kubesh.go
