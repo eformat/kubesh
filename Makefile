@@ -31,5 +31,5 @@ clean:
 
 .PHONY: run
 run: setup
-	diff -q -x '.git*' -x '[LM]*' . ${KUBESH_ROOT} || cp *.go $(KUBESH_ROOT)/
-	cd $(KUBESH_ROOT) && go run *.go
+	diff -q -x '.git*' -x '[A-Z]*' . $(KUBESH_ROOT) || cp *.go $(KUBESH_ROOT)/
+	go run $(KUBESH_ROOT)/*.go
