@@ -27,10 +27,15 @@ type CommandCompleter struct {
 
 func (cc *CommandCompleter) Do(line []rune, pos int) (newLine [][]rune, offset int) {
 	cmd := cc.Root
-	index := strings.LastIndex(string(line[:pos]), " ") + 1
 	word := string(line[:pos])
-	if index > 0 {
-		word = word[index:pos]
+	lastSpace := strings.LastIndex(string(line[:pos]), " ") + 1
+	lastComma := strings.LastIndex(string(line[:pos]), ",") + 1
+	if lastSpace > 0 {
+		if lastComma > lastSpace {
+			word = word[lastComma:pos]
+		} else {
+			word = word[lastSpace:pos]
+		}
 		var err error
 		cmd, _, err = cc.Root.Find(strings.Split(string(line), " "))
 		if err != nil {
