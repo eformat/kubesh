@@ -16,11 +16,11 @@ KUBE_ROOT = $(word 1, $(subst :, ,$(GOPATH)))/src/k8s.io/kubernetes
 KUBESH_ROOT = $(KUBE_ROOT)/cmd/kubesh
 
 $(KUBE_ROOT):
-	mkdir -p $(KUBE_ROOT)
+	@mkdir -p $(KUBE_ROOT)
 	git clone https://github.com/kubernetes/kubernetes.git $(KUBE_ROOT)
 
 $(KUBESH_ROOT): $(KUBE_ROOT)
-	mkdir -p $(KUBESH_ROOT)
+	cd $(KUBESH_ROOT) || mkdir -p $(KUBESH_ROOT) && cp *.go $(KUBESH_ROOT)/ && cd $(KUBESH_ROOT) && go install -v
 
 .PHONY: setup
 setup: $(KUBESH_ROOT)
